@@ -1,6 +1,8 @@
 service: image-opt-api
 frameworkVersion: '3'
 org: balogun
+ 
+
 
 custom:
   tableName: 'users-table-${sls:stage}'
@@ -10,6 +12,8 @@ provider:
   stage: dev
   region: us-east-1
   runtime: nodejs18.x
+  environment:
+    USERS_TABLE: ${self:custom.tableName}
   iam:
     role:
       statements:
@@ -23,8 +27,6 @@ provider:
             - dynamodb:DeleteItem
           Resource:
             - Fn::GetAtt: [ UsersTable, Arn ]
-  environment:
-    USERS_TABLE: ${self:custom.tableName}
 
 functions:
   api:
