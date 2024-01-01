@@ -10,8 +10,9 @@ custom:
 provider:
   name: aws
   stage: dev
-  region: us-east-1
   runtime: nodejs18.x
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'dev'}
   environment:
     USERS_TABLE: ${self:custom.tableName}
   # iam:
