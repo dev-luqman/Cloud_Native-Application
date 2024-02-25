@@ -1,41 +1,4 @@
 {
-    "users": [
-      {
-        "id": 1,
-        "username": "musiclover23",
-        "email": "musiclover23@example.com",
-        "birthdate": "1990-05-15",
-        "country": "USA"
-      },
-      {
-        "id": 2,
-        "username": "melodyfanatic",
-        "email": "melodyfanatic@example.com",
-        "birthdate": "1985-09-20",
-        "country": "Canada"
-      },
-      {
-        "id": 3,
-        "username": "rhythmlover45",
-        "email": "rhythmlover45@example.com",
-        "birthdate": "1995-02-10",
-        "country": "UK"
-      },
-      {
-        "id": 4,
-        "username": "beatsaddict",
-        "email": "beatsaddict@example.com",
-        "birthdate": "1988-12-03",
-        "country": "Australia"
-      },
-      {
-        "id": 5,
-        "username": "tuneenthusiast",
-        "email": "tuneenthusiast@example.com",
-        "birthdate": "1992-07-28",
-        "country": "Germany"
-      }
-    ],
     "music": [
       {
         "id": 1,
@@ -71,43 +34,6 @@
         "artist": "Soulful Crooners",
         "genre": "Blues",
         "duration": "4:55"
-      }
-    ],
-    "playlists": [
-      {
-        "id": 1,
-        "name": "Morning Mix",
-        "description": "Upbeat tunes to kickstart your day",
-        "owner_id": 1,
-        "songs": [1, 3, 5]
-      },
-      {
-        "id": 2,
-        "name": "Chill Vibes",
-        "description": "Relaxing tracks for a peaceful evening",
-        "owner_id": 2,
-        "songs": [3, 4]
-      },
-      {
-        "id": 3,
-        "name": "Workout Jams",
-        "description": "Energetic beats to keep you motivated",
-        "owner_id": 3,
-        "songs": [2, 4]
-      },
-      {
-        "id": 4,
-        "name": "Road Trip Playlist",
-        "description": "Songs for the open road",
-        "owner_id": 4,
-        "songs": [1, 2, 5]
-      },
-      {
-        "id": 5,
-        "name": "Late Night Melodies",
-        "description": "Soothing tunes for winding down",
-        "owner_id": 5,
-        "songs": [3, 4, 5]
       }
     ]
   }
