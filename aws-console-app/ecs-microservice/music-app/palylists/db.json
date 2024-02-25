@@ -1,0 +1,40 @@
+{
+    "playlists": [
+      {
+        "id": 1,
+        "name": "Morning Mix",
+        "description": "Upbeat tunes to kickstart your day",
+        "owner_id": 1,
+        "songs": [1, 3, 5]
+      },
+      {
+        "id": 2,
+        "name": "Chill Vibes",
+        "description": "Relaxing tracks for a peaceful evening",
+        "owner_id": 2,
+        "songs": [3, 4]
+      },
+      {
+        "id": 3,
+        "name": "Workout Jams",
+        "description": "Energetic beats to keep you motivated",
+        "owner_id": 3,
+        "songs": [2, 4]
+      },
+      {
+        "id": 4,
+        "name": "Road Trip Playlist",
+        "description": "Songs for the open road",
+        "owner_id": 4,
+        "songs": [1, 2, 5]
+      },
+      {
+        "id": 5,
+        "name": "Late Night Melodies",
+        "description": "Soothing tunes for winding down",
+        "owner_id": 5,
+        "songs": [3, 4, 5]
+      }
+    ]
+  }
+  
