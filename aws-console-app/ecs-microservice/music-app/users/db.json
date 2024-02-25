@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "musiclover23",
+      "email": "musiclover23@example.com",
+      "birthdate": "1990-05-15",
+      "country": "USA"
+    },
+    {
+      "id": 2,
+      "username": "melodyfanatic",
+      "email": "melodyfanatic@example.com",
+      "birthdate": "1985-09-20",
+      "country": "Canada"
+    },
+    {
+      "id": 3,
+      "username": "rhythmlover45",
+      "email": "rhythmlover45@example.com",
+      "birthdate": "1995-02-10",
+      "country": "UK"
+    },
+    {
+      "id": 4,
+      "username": "beatsaddict",
+      "email": "beatsaddict@example.com",
+      "birthdate": "1988-12-03",
+      "country": "Australia"
+    },
+    {
+      "id": 5,
+      "username": "tuneenthusiast",
+      "email": "tuneenthusiast@example.com",
+      "birthdate": "1992-07-28",
+      "country": "Germany"
+    }
+  ]
+}
