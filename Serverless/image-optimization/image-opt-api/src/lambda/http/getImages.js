@@ -16,7 +16,18 @@ const dynamoDbClient = DynamoDBDocumentClient.from(client);
 
 app.use(express.json());
 
-app.get("/users/:userId", async function (req, res) {
+app.get("/", async    (req, res) {
+  try {
+      res
+        .status(200)
+        .json({ error: 'Welcome Guys' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Could not retreive user" });
+  }
+});
+
+app.get("/:imageID", async function (req, res) {
   const params = {
     TableName: USERS_TABLE,
     Key: {
@@ -40,7 +51,7 @@ app.get("/users/:userId", async function (req, res) {
   }
 });
 
-app.post("/users", async function (req, res) {
+app.post("/", async function (req, res) {
   const { userId, name } = req.body;
   if (typeof userId !== "string") {
     res.status(400).json({ error: '"userId" must be a string' });

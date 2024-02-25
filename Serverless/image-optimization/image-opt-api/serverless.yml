@@ -9,7 +9,6 @@ custom:
 
 provider:
   name: aws
-  stage: dev
   runtime: nodejs18.x
   region: ${opt:region, 'us-east-1'}
   stage: ${opt:stage, 'dev'}
@@ -30,10 +29,14 @@ provider:
   #           - Fn::GetAtt: [ UsersTable, Arn ]
 
 functions:
-  api:
-    handler: index.handler
+  getAllIMages:
+    handler: src/lambda/http/getImages.handler
     events:
-      - httpApi: '*'
+      - httpApi:
+          method: "*"
+          path: /images
+          cors: true
+
 
 # resources:
 #   Resources:
