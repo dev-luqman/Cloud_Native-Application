@@ -4,7 +4,7 @@ This project demonstrates the deployment of a music streaming application using 
 
 ## Architecture
 
-![Architecture diagram](./ms-music.jpeg)
+![Architecture diagram](./assets/ms-music.jpeg)
 
 ## Technologies Used:
 -   Docker
@@ -41,28 +41,28 @@ This project demonstrates the deployment of a music streaming application using 
 - Push the Docker images to ECR using the `docker push` command.
 - Apply same for all services show in the diagram below
 
-![ECR diagram](./ecr_1.png)
-![ECR diagram](./ecr_2.png)
-![ECR diagram](./ecr_2.png)
+![ECR diagram](./assets/ecr_1.png)
+![ECR diagram](./assets/ecr_2.png)
+![ECR diagram](./assets/ecr_2.png)
 
 
 ### 3. Configure AWS ECS Cluster:
 - Create an ECS cluster in the AWS Management Console or using AWS CLI.
 - Define the cluster capacity, networking configuration, and security groups as per your requirements.
 - Ensure that the ECS cluster is configured to use Fargate launch type for serverless container deployments.
-![ECS diagram](./ecs_1.png)
+![ECS diagram](./assets/ecs_1.png)
 
 ### 4. Create ECS Task Definitions:
 - Define task definitions for each microservice specifying the Docker image URI, CPU/memory requirements, port mappings, and environment variables.
 - Create ECS task definitions either through the AWS Management Console or using AWS CLI.
-![ECS diagram](./ecs_2.png)
+![ECS diagram](./assets/ecs_2.png)
 
 ### 5. Create ECS Services:
 - Create ECS services for each microservice based on the previously defined task definitions.
 - Configure the desired number of tasks, service discovery, and load balancing settings.
 - Associate the services with the ECS cluster.
 - Configure network, loadbalancer and target group for ther servise
-![ECS diagram](./ecs_3.png)
+![ECS diagram](./assets/ecs_3.png)
 
 ### 6. Testing and Monitoring:
 - Verify that the ECS services are running successfully by accessing the application endpoints.
