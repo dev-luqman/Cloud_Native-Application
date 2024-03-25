@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment # Name of the Deployment
+spec:
+  replicas: 3 # Number of replicas to maintain
+  selector:
+    matchLabels:
+      app: nginx # Label selector to match pods
+  template:
+    metadata:
+      labels:
+        app: nginx # Label applied to pods managed by the Deployment
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+          requests:
+            cpu: "0.5"
+            memory: "256Mi" # NGINX Docker image and tag
+        ports:
+          - containerPort: 80 # Port to expose within the container
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 20
+  strategy:
+    type: RollingUpdate  # Update strategy type (RollingUpdate or Recreate)
+    rollingUpdate:
+      maxSurge: 1  # Maximum number of additional pods allowed during update
+      maxUnavailable: 1  # Maximum number of unavailable pods allowed during update
+

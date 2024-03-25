@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-replicaset  # Name of the ReplicaSet
+spec:
+  replicas: 3  # Number of replicas to maintain
+  selector:
+    matchLabels:
+      app: nginx  # Label selector to match pods
+  template:
+    metadata:
+      labels:
+        app: nginx  # Label applied to pods created by the ReplicaSet
+    spec:
+      containers:
+        - name: nginx-container  # Name of the container within pods
+          image: nginx:latest    # NGINX Docker image and tag
+          ports:
+            - containerPort: 80  # Port to expose within the container
