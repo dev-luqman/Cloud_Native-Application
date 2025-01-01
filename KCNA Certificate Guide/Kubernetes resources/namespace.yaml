@@ -1,43 +1,31 @@
-### Namespace are a way kubernetes group resources in different environemt and isolate the different environment from default communication
-## By default whan we type the command below
-# $kubectl get pod, we get the pod from the defalt namespace 
+kubernetes_learning_curve:
+  namespaces:
+    description: "Logical partitions for grouping and isolating resources."
+    structure:
+      namespace:
+        apiVersion: "v1"
+        kind: "Namespace"
+        metadata:
+          name: "dev"
 
-# we also get kube-system name space which is use to isolate the user from interacting with kubernetes manage resources 
-# lastly we have another namespace called kube-public which is use to manage interaction with the api with kube-system 
-
-# we can create our namespace by utilizing the following approach
-
-# 1. imperatice approach : &kubectl create namespace {namespave-name}
-
-# 2. declarative approach using the following yaml file 
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: name
-
-# with the command : $kubectl apply -f namespace.yaml
-
-### Resource referencing in namespace is done by 
-# 1. same namespace is by referencing the name of svc directly
-# 2. Across Namespace is done follwoing the below approach 
-### $svc-name.namespace-name{dev}.svc.cluster.local ###
-
-### Changing the default namespace config to another namespace ###
-# $kubectl config set-context $(kubectl config current-context)  --namespace=dev
-
-
-### Limit resource in a namespace, we use Resource Quota for different namespaceis ###
-apiVersion: v1 
-kind: ResourceQuota
-metadata: 
-  name: dev-resource-limit
-  namespace: dev
-spec: 
-  hard: 
-    pods: 10
-    request.cpu: 4
-    request.memory: 10Gi
-    limit.cpu: 10
-    limit.memory: 30Gi
-
-### command $ kubectl apply -f resource-quota.yaml
+      resource_quota:
+        apiVersion: "v1"
+        kind: "ResourceQuota"
+        metadata:
+          name: "dev-resource-limit"
+          namespace: "dev"
+        spec:
+          hard:
+            pods: 10
+            requests.cpu: "4"
+            requests.memory: "10Gi"
+            limits.cpu: "10"
+            limits.memory: "30Gi"
+            
+    commands:
+      creation:
+        imperative: "kubectl create namespace dev"
+        declarative: "kubectl apply -f namespace.yaml"
+      configuration:
+        - "kubectl config set-context $(kubectl config current-context) --namespace=dev"
+      apply_resource_quota: "kubectl apply -f resource-quota.yaml"
