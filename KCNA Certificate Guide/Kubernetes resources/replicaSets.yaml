@@ -1,40 +1,27 @@
-## Standard Kubernetes structure requires 4 parameters
-# apiVersion: vi | apps/v1
-# kind: replicalSets
-# metadata:
-#    name: replicalSet-name
-#    labels: 
-# spec: 
-
-### Replication helps to bring about HIgh Availability of a pod by running multiple instances of a pod and also recreate a evicted | terminated pod 
-## Another advantage is also share pods across multiple nodes
-apiVersion: apps/v1
-kind: replicaSet
-metadata: 
-  name: replica-sample
-  label: 
-    tier: backend
-    env: dev
-spec: 
-  replicas: 3
-  template: 
-    metadate:
-      name: smaple-nginx-pod
-      label: 
-        end: dev
-    spec: 
-      containers: 
-      - name: nginx-name
-        image: nginx-sample-image
-  selector:
-    matchLabels:
-      name: sample-nginx-pod
-
-
-
-### Commands for pod manangemenent
-# kubectl create -f replicaSet.yaml
-# kubectl get replicaSet -o wide/yaml/json
-# kubectl delete replicaSet name-replicaSet
-# kubectl describe replicaSets
-# kubectl scale --replicas=6 replicaSet name-replicaSet
+kubernetes_learning_curve:
+  replicasets:
+    description: "Ensure that a specified number of pod replicas are running at any given time."
+    structure:
+      apiVersion: "apps/v1"
+      kind: "ReplicaSet"
+      metadata:
+        name: "replicaset-name"
+        labels:
+          tier: "backend"
+      spec:
+        replicas: 3
+        selector:
+          matchLabels:
+            app: "nginx"
+        template:
+          metadata:
+            labels:
+              app: "nginx"
+          spec:
+            containers:
+              - name: "nginx-container"
+                image: "nginx"
+    commands:
+      - "kubectl create -f replicaset.yaml"
+      - "kubectl get replicasets"
+      - "kubectl delete replicaset replicaset-name"
