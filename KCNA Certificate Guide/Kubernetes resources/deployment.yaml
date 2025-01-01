@@ -46,3 +46,13 @@ spec:
 # kubectl rollout undo deployment deployment-name     {to rollback}
 
 # kubectl set image deployment deployment-name image-name=image-repo-name --record  {Update the image}
+
+
+
+## Imperative commands 
+# kubectl run --image=image-name pod-name
+# kubectl create deployment --image=image-name deployment-name
+# kubectl scale deployment deployment-name --replicas=4
+# kubectl edit deployment deployment-name 
+# kubeclt expose deployment deployment-name --port 80
+# kubectl set image deployment deployment-name image-name=image-repo:tag
