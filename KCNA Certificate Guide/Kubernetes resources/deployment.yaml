@@ -56,3 +56,6 @@ spec:
 # kubectl edit deployment deployment-name 
 # kubeclt expose deployment deployment-name --port 80
 # kubectl set image deployment deployment-name image-name=image-repo:tag
+
+## Declarative Command 
+# kubectl apply -f deployment.yaml {both for create and update}
