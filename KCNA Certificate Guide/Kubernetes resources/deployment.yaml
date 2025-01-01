@@ -1,0 +1,48 @@
+## Standard Kubernetes structure requires 4 parameters
+# apiVersion: vi | apps/v1
+# kind: replicalSets
+# metadata:
+#    name: replicalSet-name
+#    labels: 
+# spec: 
+
+### Deployment help with rollout, update, rollback, pull image of a pod which is an high level to the pods, and replicaSet
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-sample
+  label:
+    tier: backend
+    env: dev
+spec:
+  strategy: recreate
+  replicas: 3
+  template:
+    metadate:
+      name: smaple-nginx-pod
+      label:
+        end: dev
+    spec:
+      containers:
+      - name: nginx-name
+        image: nginx-sample-image
+  selector:
+    matchLabels:
+      name: sample-nginx-pod
+
+### Commands for deployment manangemenent
+# kubectl create -f deployment.yaml
+# kubectl apply -f deployment.yaml --record   {--record flags records the cause of change for us to see in the history command}
+# kubectl get all
+# kubectl get deployment deployment-name -o wide/yaml/json
+# kubectl edit deployment deployment-name --record
+# kubectl delete deployment deployment-name
+# kubectl describe deployment deployment-name
+
+
+### Rollout and Versioning command 
+# kubectl rollout status deployment deployment-name    {get status of deployment}
+# kubectl rollout history deployment deployment-name   {Check history}
+# kubectl rollout undo deployment deployment-name     {to rollback}
+
+# kubectl set image deployment deployment-name image-name=image-repo-name --record  {Update the image}
