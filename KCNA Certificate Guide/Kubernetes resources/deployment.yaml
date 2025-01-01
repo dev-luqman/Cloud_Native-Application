@@ -1,61 +1,46 @@
-## Standard Kubernetes structure requires 4 parameters
-# apiVersion: vi | apps/v1
-# kind: replicalSets
-# metadata:
-#    name: replicalSet-name
-#    labels: 
-# spec: 
+kubernetes_learning_curve:
+  deployments:
+    description: "High-level abstraction for managing ReplicaSets and Pods, supporting updates and rollbacks."
+    structure:
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      metadata:
+        name: "deployment-sample"
+        labels:
+          tier: "backend"
+      spec:
+        replicas: 3
+        strategy:
+          type: "Recreate"
+        template:
+          metadata:
+            labels:
+              app: "nginx"
+          spec:
+            containers:
+              - name: "nginx-container"
+                image: "nginx"
+        selector:
+          matchLabels:
+            app: "nginx"
+    commands:
+      management:
+        - "kubectl create -f deployment.yaml"
+        - "kubectl apply -f deployment.yaml --record"
+        - "kubectl get deployments"
+        - "kubectl edit deployment deployment-name --record"
+        - "kubectl delete deployment deployment-name"
+      rollout:
+        - "kubectl rollout status deployment deployment-name"
+        - "kubectl rollout history deployment deployment-name"
+        - "kubectl rollout undo deployment deployment-name"
+      Imperative-command: 
+        - "kubectl run --image=image-name pod-name"
+        - "kubectl create deployment --image=image-name deployment-name"
+        - "kubectl scale deployment deployment-name --replicas=4"
+        - "kubectl edit deployment deployment-name"
+        - "kubeclt expose deployment deployment-name --port 80"
+        - "kubectl set image deployment deployment-name image-name=image-repo:tag"
 
-### Deployment help with rollout, update, rollback, pull image of a pod which is an high level to the pods, and replicaSet
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: deployment-sample
-  label:
-    tier: backend
-    env: dev
-spec:
-  strategy: recreate
-  replicas: 3
-  template:
-    metadate:
-      name: smaple-nginx-pod
-      label:
-        end: dev
-    spec:
-      containers:
-      - name: nginx-name
-        image: nginx-sample-image
-  selector:
-    matchLabels:
-      name: sample-nginx-pod
-
-### Commands for deployment manangemenent
-# kubectl create -f deployment.yaml
-# kubectl apply -f deployment.yaml --record   {--record flags records the cause of change for us to see in the history command}
-# kubectl get all
-# kubectl get deployment deployment-name -o wide/yaml/json
-# kubectl edit deployment deployment-name --record
-# kubectl delete deployment deployment-name
-# kubectl describe deployment deployment-name
-
-
-### Rollout and Versioning command 
-# kubectl rollout status deployment deployment-name    {get status of deployment}
-# kubectl rollout history deployment deployment-name   {Check history}
-# kubectl rollout undo deployment deployment-name     {to rollback}
-
-# kubectl set image deployment deployment-name image-name=image-repo-name --record  {Update the image}
-
-
-
-## Imperative commands 
-# kubectl run --image=image-name pod-name
-# kubectl create deployment --image=image-name deployment-name
-# kubectl scale deployment deployment-name --replicas=4
-# kubectl edit deployment deployment-name 
-# kubeclt expose deployment deployment-name --port 80
-# kubectl set image deployment deployment-name image-name=image-repo:tag
-
-## Declarative Command 
-# kubectl apply -f deployment.yaml {both for create and update}
+      Declarative-Command:
+        - "kubectl apply -f deployment.yaml {both for create and update}"
