@@ -1,0 +1,28 @@
+## Standard Kubernetes structure are 
+# apiVersion: vi / api/v1
+# kind: Pod
+# metadata:
+# spec:
+
+## smaple nginx pod defination 
+apiVersion: v1
+kind: Pod
+metadata: 
+    label:
+        env: staging
+        name: nginx-sample-pod
+spec: 
+    containers:
+    - name: nginx-container
+      image: nginx
+#we cna have more container which we will discuss in other topics as we proceed
+
+
+
+
+
+### Commands for pod manangemenent
+# kubectl create -f pod.yaml
+# kubectl get pods -o wide/yaml/json
+# kubectl describe pods 
+# kubectl run smaple-nginx-pod --image:nginx
