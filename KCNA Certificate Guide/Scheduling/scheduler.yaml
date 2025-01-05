@@ -1,0 +1,186 @@
+kubernetes_learning_curve:
+  namespaces:
+    description: >
+      Namespaces are logical partitions in Kubernetes that provide a mechanism to
+      group and isolate resources within a cluster. They are often used for separating
+      environments (e.g., dev, staging, production) or teams.
+
+    structure:
+      namespace:
+        # Namespace configuration for the 'dev' environment
+        apiVersion: "v1"
+        kind: "Namespace"
+        metadata:
+          name: "dev"
+
+      resource_quota:
+        # ResourceQuota configuration to limit resource usage in the 'dev' namespace
+        apiVersion: "v1"
+        kind: "ResourceQuota"
+        metadata:
+          name: "dev-resource-limit"
+          namespace: "dev"
+        spec:
+          hard:
+            pods: 10               # Maximum number of pods allowed
+            requests.cpu: "4"      # CPU resource requests limit
+            requests.memory: "10Gi" # Memory resource requests limit
+            limits.cpu: "10"       # CPU resource limits
+            limits.memory: "30Gi"  # Memory resource limits
+
+    commands:
+      creation:
+        # Imperative command to get pods matching a label selector
+        imperative: "kubectl get pod --selector tier=frontend"
+
+        # Declarative command to apply a namespace YAML configuration
+        declarative: "kubectl apply -f namespace.yaml"
+
+      configuration:
+        # Configure the current context to use the 'dev' namespace
+        - "kubectl config set-context $(kubectl config current-context) --namespace=dev"
+
+      apply_resource_quota:
+        # Apply the resource quota YAML configuration
+        - "kubectl apply -f resource-quota.yaml"
+
+  manual_scheduling:
+    description: >
+      Manual scheduling allows you to explicitly specify the node where a pod should run.
+      This can be useful for testing or specific scenarios requiring precise control.
+
+    example:
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: manually-scheduled-pod
+      spec:
+        nodeName: node01  # Specify the node for scheduling
+        containers:
+        - name: nginx
+          image: nginx
+
+  taints_and_tolerations:
+    description: >
+      Taints allow you to mark a node so that no pods can schedule on it unless they have
+      matching tolerations. This is used to isolate workloads or reserve nodes for specific tasks.
+
+    taint_example:
+      # Add a taint to a node
+      - command: "kubectl taint nodes node1 key=value:NoSchedule"
+
+    toleration_example:
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: tolerant-pod
+      spec:
+        tolerations:
+        - key: "key"
+          operator: "Equal"
+          value: "value"
+          effect: "NoSchedule"
+        containers:
+        - name: nginx
+          image: nginx
+
+  resource_limits:
+    description: >
+      Resource limits restrict the CPU and memory that containers in a namespace can use.
+      They help ensure fair resource allocation and prevent overconsumption.
+
+    deployment_example:
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: limited-deployment
+      spec:
+        replicas: 2
+        selector:
+          matchLabels:
+            app: limited
+        template:
+          metadata:
+            labels:
+              app: limited
+          spec:
+            containers:
+            - name: app-container
+              image: app-image
+              resources:
+                limits:
+                  cpu: "500m"
+                  memory: "512Mi"
+                requests:
+                  cpu: "200m"
+                  memory: "256Mi"
+
+    limitrange_example:
+      apiVersion: v1
+      kind: LimitRange
+      metadata:
+        name: namespace-limit-range
+      spec:
+        limits:
+        - type: Container
+          default:
+            cpu: "1"
+            memory: "512Mi"
+          defaultRequest:
+            cpu: "500m"
+            memory: "256Mi"
+
+  daemonsets:
+    description: >
+      DaemonSets ensure that a copy of a pod runs on every node (or selected nodes).
+      Commonly used for tasks like log collection or monitoring.
+
+    example:
+      apiVersion: apps/v1
+      kind: DaemonSet
+      metadata:
+        name: fluentd
+      spec:
+        selector:
+          matchLabels:
+            app: fluentd
+        template:
+          metadata:
+            labels:
+              app: fluentd
+          spec:
+            containers:
+            - name: fluentd
+              image: fluent/fluentd
+
+  static_pods:
+    description: >
+      Static pods are managed by the kubelet and are typically used for critical components
+      like control plane pods on master nodes. They are defined on the node itself.
+
+    example:
+      # Save this file to /etc/kubernetes/manifests/static-pod.yaml
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: static-nginx
+      spec:
+        containers:
+        - name: nginx
+          image: nginx
+
+  multiple_schedulers:
+    description: >
+      Kubernetes allows running multiple schedulers for handling different workloads. 
+      Pods can specify the scheduler to use via the `schedulerName` field.
+
+    example:
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: custom-scheduler-pod
+      spec:
+        schedulerName: custom-scheduler  # Use custom scheduler
+        containers:
+        - name: nginx
+          image: nginx
